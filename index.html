@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Assignment 2 </title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <!-- header -->
+        <header class="row">
+            <div class="header-data">
+                <span>CS 6314</span><br>
+                <span>Assignment - 2</span>
+            </div>
+            <div id="datetime"></div>
+        </header>
+        
+        <!-- navigation bar-->
+        <div class="row navigations">
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="stays.html">Stays</a></li>
+                    <li><a href="flights.html">Flights</a></li>
+                    <li><a href="cars.html">Cars</a></li>
+                    <li><a href="cruises.html">Cruises</a></li>
+                    <li><a href="contactUs.html">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- side and main content-->
+        <div class="row container">
+            <section class="sidesection">
+                <h2>Side Content</h2>
+                <h4>Customization Controls :</h4>
+                <div>
+                    <label for="fontsize">Font Size: </label>
+                    <input type="range" id="fontsize" min="5" max="50" value="16">
+                    <span id="fontsizeval">16px</span>
+                </div>
+                <div>
+                    <label for="bgColor">Background Color: </label>
+                    <input type="color" id="bgColor" value="#ffffff">
+                </div><br>
+            </section>
+            <section class="mainsection">
+                <h2>Welcome to our website </h2>
+                <p>This is where you can book flights, hotels cruises and cars</p>
+                <p>Please let us know if you need assistance </p>
+            </section>
+        </div>
+
+        <!-- footer -->
+        <footer class="row">
+            <div>
+                <h3>Developers Details</h3>
+                <span>First Name: Wajih </span><br>
+                <span>Last Name: Anwar</span><br>
+                <span>Net ID: WZA170000</span><br>
+                <span>Section Number: 6314.002</span><br>
+                <h4>Partner Details</h4>
+                <span>First Name: Utsav Dushyant</span><br>
+                <span>Last Name: Kanani</span><br>
+                <span>Net ID: udk230000</span><br>
+                <span>Section Number: 6314.002</span><br>
+            </div>
+        </footer>
+
+        <!-- javascript -->
+        <script>
+            function showDateAndTime(){
+                const datetime = new Date();
+                document.getElementById("datetime").innerHTML = datetime.toLocaleString();
+            }
+            // updating the date and time after every second
+            setInterval(showDateAndTime, 1000);
+            showDateAndTime();
+
+            document.getElementById('fontsize').addEventListener('input', function() {
+            const fontsize = this.value + 'px';
+            document.querySelector('.mainsection').style.fontSize = fontsize;
+            document.getElementById('fontsizeval').innerText = fontsize;
+            });
+
+            document.getElementById('bgColor').addEventListener('input', function() {
+                document.body.style.backgroundColor = this.value;
+            });
+        </script>
+    </body>
+</html>

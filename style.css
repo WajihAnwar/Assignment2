@@ -1,0 +1,43 @@
+.container {
+    display: flex; 
+    justify-content: space-between; 
+    gap: 0%; 
+}
+.sidesection {
+    padding: 0%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 20%;
+
+}
+.mainsection {
+    padding: 0%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+}
+#datetime {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #0d966d;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.navigations {
+    background-color: cadetblue;
+}
+
+nav ul{
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline-block;
+}
+
+nav ul li a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: small;
+}
