@@ -34,8 +34,8 @@
                 <h4>Customization Controls :</h4>
                 <div>
                     <label for="fontsize">Font Size: </label>
-                    <input type="range" id="fontsize" min="5" max="50" value="16">
-                    <span id="fontsizeval">16px</span>
+                    <input type="range" id="fontsize" min="5" max="50" value="25">
+                    <span id="fontsizeval">25px</span>
                 </div>
                 <div>
                     <label for="bgColor">Background Color: </label>
@@ -43,15 +43,16 @@
                 </div><br>
             </section>
             <section class="mainsection">
-                <h2>Welcome to our website </h2>
+                <h2>Ready to Book a Flight </h2>
                 <p>This is where you can contact us regarding your enquires </p>
 
                 <form id="contactform" onsubmit="return validateForm(event)">
                     <label for="firstname">First name:</label><br>
-                    <input type="text" id="firstname" name="firstname" ><br>
-         
+                    <input type="text" id="firstname" name="firstname" style="width: 300px;"><br>
+                    
                     <label for="lastname">Last name:</label><br>
-                    <input type="text" id="lastname" name="lastname" ><br>
+                    <input type="text" id="lastname" name="lastname" style="width: 300px;"><br>
+                    
           
                     <label for="phone">phone number:</label><br>
                     <input type="text" id="phone" name="phone" placeholder="(ddd) ddd - dddd" ><br>
@@ -95,23 +96,33 @@
 
         <!-- javascript -->
         <script>
-            function showDateAndTime(){
-                const datetime = new Date();
-                document.getElementById("datetime").innerHTML = datetime.toLocaleString();
-            }
-            // updating the date and time after every second
-            setInterval(showDateAndTime, 1000);
-            showDateAndTime();
+    function updateDateTime() {
+        const now = new Date();
+        const currentDateTime = now.toLocaleString();
+        document.querySelector('#datetime').textContent = currentDateTime;
+    }
 
-            document.getElementById('fontsize').addEventListener('input', function() {
-            const fontsize = this.value + 'px';
-            document.querySelector('.mainsection').style.fontSize = fontsize;
-            document.getElementById('fontsizeval').innerText = fontsize;
-            });
+    function updateFontSize() {
+        const fontSize = document.getElementById('fontsize').value + 'px';
+        document.querySelector('.mainsection').style.fontSize = fontSize;
+        document.querySelector('#fontsizeval').textContent = fontSize;
+    }
 
-            document.getElementById('bgColor').addEventListener('input', function() {
-                document.body.style.backgroundColor = this.value;
-            });
+    function updateBackgroundColor() {
+        const bgColor = document.getElementById('bgColor').value;
+        document.querySelector('body').style.backgroundColor = bgColor;
+    }
+
+    // Call the update functions on change
+    document.getElementById('fontsize').addEventListener('input', updateFontSize);
+    document.getElementById('bgColor').addEventListener('input', updateBackgroundColor);
+
+    // Update the date and time every second
+    setInterval(updateDateTime, 1000);
+
+    // Initialize
+    updateFontSize();
+    updateBackgroundColor();
             function validateForm(event){
                 event.preventDefault();
                 let firstname = document.getElementById("firstname").value.trim();
@@ -126,6 +137,12 @@
                 let namePattern = /^[A-Za-z]*$/;
                 let phonePattern = /^\(\d{3}\) \d{3}-\d{4}$/;
                 let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+                if (!firstname && !lastname && !phone && !email && !gender && !comment) {
+                    alert("All fields are empty. Please fill in the form.");
+                    return false; // Stop validation if all fields are empty
+                }
 
        
                 if(!namePattern.test(firstname)){
@@ -165,6 +182,7 @@
 
                 return false;
             }
+ 
         </script>
     </body>
 </html>
