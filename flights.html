@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assignment 2</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .hidden {
-            display: none;
-        }
-    </style>
+ 
 </head>
 <body>
     <!-- header -->
@@ -64,91 +62,24 @@
                     <div id="oneWayOptions" class="hidden">
                         <h2>One Way Trip</h2>
                         <label for="origin">Origin:</label>
-                        <select id="origin" name="origin" required>
-                            <optgroup label="Texas">
-                                <option value="Dallas">Dallas/Fort Worth International Airport (DFW)</option>
-                                <option value="Austin">Austin-Bergstrom International Airport (AUS)</option>
-                                <option value="Houston">George Bush Intercontinental Airport (IAH)</option>
-                                <option value="San Antonio">San Antonio International Airport (SAT)</option>
-                                <option value="El Paso">El Paso International Airport (ELP)</option>
-                                <option value="Lubbock">Lubbock Preston Smith International Airport (LBB)</option>
-                                <option value="Corpus Christi">Corpus Christi International Airport (CRP)</option>
-                                <option value="Midland">Midland International Air & Space Port (MAF)</option>
-                            </optgroup>
-                            <optgroup label="California">
-                                <option value="Los Angeles">Los Angeles International Airport (LAX)</option>
-                                <option value="San Francisco">San Francisco International Airport (SFO)</option>
-                                <option value="San Diego">San Diego International Airport (SAN)</option>
-                                <option value="San Jose">San Jose International Airport (SJC)</option>
-                                <option value="Sacramento">Sacramento International Airport (SMF)</option>
-                                <option value="Oakland">Oakland International Airport (OAK)</option>
-                                <option value="Burbank">Hollywood Burbank Airport (BUR)</option>
-                                <option value="Long Beach">Long Beach Airport (LGB)</option>
-                                <option value="Santa Ana">John Wayne Airport (SNA)</option>
-                                <option value="Fresno">Fresno Yosemite International Airport (FAT)</option>
-                                <option value="Palm Springs">Palm Springs International Airport (PSP)</option>
-                            </optgroup>
-                        </select>
+                        <input list="citySuggestions" id="origin" name="origin" oninput="filterCities()"><br>
+                        <datalist id="citySuggestions"></datalist>
+                        <label for="destination">Destination:</label>
+                        <input list="citySuggestions" id="destination" name="destination" oninput="filterCities()"><br>
+                        <datalist id="citySuggestions"></datalist>
+                
                         <label for="departureDate">Departure Date:</label>
                         <input type="date" id="departureDate" required>
                     </div>
 
                     <div id="roundTripOptions" class="hidden">
                         <h2>Round Trip</h2>
-                        <label for="origin">Origin:</label>
-                        <select id="origin" name="origin" required>
-                            <optgroup label="Texas">
-                                <option value="Dallas">Dallas/Fort Worth International Airport (DFW)</option>
-                                <option value="Austin">Austin-Bergstrom International Airport (AUS)</option>
-                                <option value="Houston">George Bush Intercontinental Airport (IAH)</option>
-                                <option value="San Antonio">San Antonio International Airport (SAT)</option>
-                                <option value="El Paso">El Paso International Airport (ELP)</option>
-                                <option value="Lubbock">Lubbock Preston Smith International Airport (LBB)</option>
-                                <option value="Corpus Christi">Corpus Christi International Airport (CRP)</option>
-                                <option value="Midland">Midland International Air & Space Port (MAF)</option>
-                            </optgroup>
-                            <optgroup label="California">
-                                <option value="Los Angeles">Los Angeles International Airport (LAX)</option>
-                                <option value="San Francisco">San Francisco International Airport (SFO)</option>
-                                <option value="San Diego">San Diego International Airport (SAN)</option>
-                                <option value="San Jose">San Jose International Airport (SJC)</option>
-                                <option value="Sacramento">Sacramento International Airport (SMF)</option>
-                                <option value="Oakland">Oakland International Airport (OAK)</option>
-                                <option value="Burbank">Hollywood Burbank Airport (BUR)</option>
-                                <option value="Long Beach">Long Beach Airport (LGB)</option>
-                                <option value="Santa Ana">John Wayne Airport (SNA)</option>
-                                <option value="Fresno">Fresno Yosemite International Airport (FAT)</option>
-                                <option value="Palm Springs">Palm Springs International Airport (PSP)</option>
-                            </optgroup>
-                        </select>
-                        
-                        <!-- Destination Dropdown -->
-                        <label for="destination">Destination:</label>
-                        <select id="destination" name="destination" required>
-                            <optgroup label="Texas">
-                                <option value="Dallas">Dallas/Fort Worth International Airport (DFW)</option>
-                                <option value="Austin">Austin-Bergstrom International Airport (AUS)</option>
-                                <option value="Houston">George Bush Intercontinental Airport (IAH)</option>
-                                <option value="San Antonio">San Antonio International Airport (SAT)</option>
-                                <option value="El Paso">El Paso International Airport (ELP)</option>
-                                <option value="Lubbock">Lubbock Preston Smith International Airport (LBB)</option>
-                                <option value="Corpus Christi">Corpus Christi International Airport (CRP)</option>
-                                <option value="Midland">Midland International Air & Space Port (MAF)</option>
-                            </optgroup>
-                            <optgroup label="California">
-                                <option value="Los Angeles">Los Angeles International Airport (LAX)</option>
-                                <option value="San Francisco">San Francisco International Airport (SFO)</option>
-                                <option value="San Diego">San Diego International Airport (SAN)</option>
-                                <option value="San Jose">San Jose International Airport (SJC)</option>
-                                <option value="Sacramento">Sacramento International Airport (SMF)</option>
-                                <option value="Oakland">Oakland International Airport (OAK)</option>
-                                <option value="Burbank">Hollywood Burbank Airport (BUR)</option>
-                                <option value="Long Beach">Long Beach Airport (LGB)</option>
-                                <option value="Santa Ana">John Wayne Airport (SNA)</option>
-                                <option value="Fresno">Fresno Yosemite International Airport (FAT)</option>
-                                <option value="Palm Springs">Palm Springs International Airport (PSP)</option>
-                            </optgroup>
-                        </select>
+                        <label for="originRound">Origin:</label>
+                        <input list="citySuggestions" id="originRound" name="originRound" oninput="filterCities()"><br>
+                        <datalist id="citySuggestionsRound"></datalist>
+                        <label for="destinationRound">Destination:</label>
+                        <input list="citySuggestions" id="destinationRound" name="destinationRound" oninput="filterCities()"><br>
+                        <datalist id="citySuggestionsRound"></datalist>
                         
                         <label for="departureDateRound">Departure Date:</label>
                         <input type="date" id="departureDateRound" required>
@@ -156,103 +87,135 @@
                         <input type="date" id="arrivalDate" required>
                     </div>
 
+                    <label>Passenger Details:</label>
+                    <span class="icon" onclick="passengerForm()">👤</span><br>
 
+                    <div id="passengerform" class="hidden">
+                        <label for="adults">Adults:</label><br>
+                        <input type="number" id="adults" name="adults" min="0" max="4" value="1"><br>
 
-                    <div id="passengerForm">
-                        <h3>Passenger Information</h3>
-                        <label for="adults">Adults:</label>
-                        <input type="number" id="adults" min="0" max="4" value="0">
-                        <label for="children">Children:</label>
-                        <input type="number" id="children" min="0" max="4" value="0">
-                        <label for="infants">Infants:</label>
-                        <input type="number" id="infants" min="0" max="4" value="0">
+                        <label for="children">Children:</label><br>
+                        <input type="number" id="children" name="children" min="0" max="4" value="0"><br>
+
+                        <label for="infants">Infants:</label><br>
+                        <input type="number" id="infants" name="infants" min="0" max="4" value="0"><br>
+
+                        <span class="error" id="passengerformerr"></span><br>
                     </div>
 
-                    <button type="submit">Search</button>
+                    <button type="submit">Submit</button>
                 </div>
             </form>
 
-            <div id="output"></div>
+            <div id="flightforminfo" class="hidden">
+                <p id="tripinfo"></p>
+                <p id="passengerinfo"></p>
+            </div>
         </section>
-
-        <script>
-            function updateDateTime() {
-                const now = new Date();
-                const currentDateTime = now.toLocaleString();
-                document.querySelector('#datetime').textContent = currentDateTime;
-            }
-
-            function updateFontSize() {
-                const fontSize = document.getElementById('fontsize').value + 'px';
-                document.querySelector('.mainsection').style.fontSize = fontSize;
-                document.querySelector('#fontsizeval').textContent = fontSize;
-            }
-
-            function updateBackgroundColor() {
-                const bgColor = document.getElementById('bgColor').value;
-                document.querySelector('body').style.backgroundColor = bgColor;
-            }
-
-            // Call the update functions on change
-            document.getElementById('fontsize').addEventListener('input', updateFontSize);
-            document.getElementById('bgColor').addEventListener('input', updateBackgroundColor);
-
-            // Update the date and time every second
-            setInterval(updateDateTime, 1000);
-
-            // Initialize
-            updateFontSize();
-            updateBackgroundColor();
-
-            function toggleTripOptions() {
-                const tripType = document.getElementById("tripType").value;
-                const tripOptions = document.getElementById("tripOptions");
-                const oneWayOptions = document.getElementById("oneWayOptions");
-                const roundTripOptions = document.getElementById("roundTripOptions");
-
-                tripOptions.classList.remove("hidden");
-
-                if (tripType === "oneway") {
-                    oneWayOptions.classList.remove("hidden");
-                    roundTripOptions.classList.add("hidden");
-                } else if (tripType === "roundtrip") {
-                    roundTripOptions.classList.remove("hidden");
-                    oneWayOptions.classList.add("hidden");
-                } else {
-                    oneWayOptions.classList.add("hidden");
-                    roundTripOptions.classList.add("hidden");
-                    tripOptions.classList.add("hidden");
-                }
-            }
-
-
-            function validateForm(event) {
-                event.preventDefault(); // Prevent form submission
-                const tripType = document.getElementById('tripType').value;
-                const adults = parseInt(document.getElementById('adults').value);
-                const children = parseInt(document.getElementById('children').value);
-                const infants = parseInt(document.getElementById('infants').value);
-                const totalPassengers = adults + children + infants;
-                const errorMessage = document.getElementById('errorMessage');
-                const departureDate = document.getElementById(tripType === 'oneway' ? 'departureDate' : 'departureDateRound').value;
-                const validDate = /^2024-(09|10|11)-(0[1-9]|[12][0-9]|30|31)$/.test(departureDate);
-
-                // Validate date and passengers
-                if (!validDate) {
-                    errorMessage.textContent = "Departure date must be between Sep 1, 2024, and Dec 1, 2024.";
-                } else if (totalPassengers > 4) {
-                    errorMessage.textContent = "Total passengers cannot exceed 4.";
-                } else {
-                    errorMessage.textContent = "";
-                    document.getElementById('output').textContent = `Trip Type: ${tripType}, Departure Date: ${departureDate}, Passengers: Adults(${adults}), Children(${children}), Infants(${infants})`;
-                }
-            }
-
-         
-
-
-            
-        </script>
     </div>
+
+    <script>
+        const validCities = [
+            "Austin (Austin-Bergstrom International Airport)", 
+            "Dallas (Dallas/Fort Worth International Airport)", 
+            "Houston (George Bush Intercontinental Airport)", 
+            "San Antonio (San Antonio International Airport)", 
+            "El Paso (El Paso International Airport)", 
+            "Lubbock (Lubbock Preston Smith International Airport)", 
+            "Corpus Christi (Corpus Christi International Airport)", 
+            "Midland (Midland International Air & Space Port)", 
+            "Los Angeles (Los Angeles International Airport)", 
+            "San Francisco (San Francisco International Airport)", 
+            "San Diego (San Diego International Airport)", 
+            "San Jose (San Jose International Airport)", 
+            "Sacramento (Sacramento International Airport)", 
+            "Oakland (Oakland International Airport)", 
+            "Burbank (Hollywood Burbank Airport)", 
+            "Long Beach (Long Beach Airport)", 
+            "Santa Ana (John Wayne Airport)", 
+            "Fresno (Fresno Yosemite International Airport)", 
+            "Palm Springs (Palm Springs International Airport)"
+        ];
+
+        // Function to filter and display city suggestions
+        function filterCities() {
+            const cityInputOrigin = document.getElementById('origin').value.toLowerCase();
+            const cityInputDestination = document.getElementById('destination').value.toLowerCase();
+            const citySuggestionsOrigin = document.getElementById('citySuggestions'); 
+            const citySuggestionsDestination = document.getElementById('citySuggestions'); 
+
+            // Clear existing suggestions
+            citySuggestionsOrigin.innerHTML = '';
+            citySuggestionsDestination.innerHTML = '';
+
+            const filteredCities = validCities.filter(city => 
+                city.toLowerCase().startsWith(cityInputOrigin) || 
+                city.toLowerCase().startsWith(cityInputDestination)
+            );
+
+            // Add filtered suggestions to the datalist
+            filteredCities.forEach(city => {
+                const option = document.createElement('option');
+                option.value = city; // Set option value
+                citySuggestionsOrigin.appendChild(option); // Add to datalist
+                citySuggestionsDestination.appendChild(option.cloneNode(true)); // Clone for destination datalist
+            });
+        }
+
+        function updateDateTime() {
+            const now = new Date();
+            const currentDateTime = now.toLocaleString();
+            document.querySelector('#datetime').textContent = currentDateTime;
+        }
+
+        function updateFontSize() {
+            const fontSize = document.getElementById('fontsize').value + 'px';
+            document.querySelector('.mainsection').style.fontSize = fontSize;
+            document.querySelector('#fontsizeval').textContent = fontSize;
+        }
+
+        function updateBackgroundColor() {
+            const bgColor = document.getElementById('bgColor').value;
+            document.querySelector('body').style.backgroundColor = bgColor;
+        }
+
+        // Call the update functions on change
+        document.getElementById('fontsize').addEventListener('input', updateFontSize);
+        document.getElementById('bgColor').addEventListener('input', updateBackgroundColor);
+        document.getElementById('origin').addEventListener('input', filterCities);
+        document.getElementById('destination').addEventListener('input', filterCities);
+
+        // Update the date and time every second
+        setInterval(updateDateTime, 1000);
+
+        // Initialize font size and background color on page load
+        updateFontSize();
+        updateBackgroundColor();
+        filterCities();
+
+        function toggleTripOptions() {
+            const tripType = document.getElementById("tripType").value;
+            const tripOptions = document.getElementById("tripOptions");
+            const oneWayOptions = document.getElementById("oneWayOptions");
+            const roundTripOptions = document.getElementById("roundTripOptions");
+
+            tripOptions.classList.remove("hidden");
+
+            if (tripType === "oneway") {
+                oneWayOptions.classList.remove("hidden");
+                roundTripOptions.classList.add("hidden");
+            } else if (tripType === "roundtrip") {
+                roundTripOptions.classList.remove("hidden");
+                oneWayOptions.classList.add("hidden");
+            }
+        }
+
+        function passengerForm() {
+            const passengerForm = document.getElementById("passengerform");
+            passengerForm.classList.toggle("hidden");
+        }
+
+    
+    </script>
 </body>
 </html>

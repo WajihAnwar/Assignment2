@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="row">
+        <div class="header-data">
+            <span>CS 6314</span><br>
+            <span>Assignment - 2</span><br>
+            <br><span>UTD Expedia </span>
+        </div>
+        <div id="datetime"></div>
+    </header>
+
+    <!-- Navigation bar -->
+    <div class="row navigations">
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="stays.html">Stays</a></li>
+                <li><a href="flights.html">Flights</a></li>
+                <li><a href="cars.html">Cars</a></li>
+                <li><a href="cruises.html">Cruises</a></li>
+                <li><a href="contactUs.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Side and Main Content -->
+    <div class="row container">
+        <section class="sidesection">
+            <h2>Side Content</h2>
+            <h4>Customization Controls :</h4>
+            <div>
+                <label for="fontsize">Font Size: </label>
+                <input type="range" id="fontsize" min="5" max="50" value="25">
+                <span id="fontsizeval">25px</span>
+            </div>
+            <div>
+                <label for="bgColor">Background Color: </label>
+                <input type="color" id="bgColor" value="#ffffff">
+            </div>
+        </section>
+        <section class="mainsection">
+            <h2>Book a stay</h2>
+            <form id="staysform" onsubmit="return validateStaysForm(event)">
+                <label for="city">City:</label><br>
+                <input list="citySuggestions" id="city" name="city" required><br>
+                <datalist id="citySuggestions"></datalist>
+                <label for="checkinDay">Check-In Date:</label><br>
+                <input type="date" id="checkinDay" name="checkinDay" required><br>
+                <label for="checkoutDay">Check-Out Date:</label><br>
+                <input type="date" id="checkoutDay" name="checkoutDay" required><br>
+
+
+                <h2><Strong>Guest Policy</Strong></h2>
+                <ul>
+                    <li><Strong>1 adult may bring up to 2 children. </Strong></li>
+                    <li><Strong>1 child is allowed for 2 parents.</Strong></li>
+                    <li><Strong>Up to 2 infants can accompany 2 parents</Strong></li>
+                    <li><Strong>Up to 1 infants and 1 child can accompany 2 parents</Strong></li>
+                </ul>
+                <label for="adults">Number of adults (per room):</label><br>
+                <input type="number" id="adults" name="adults" min="1" max="2" value="1" required><br>
+                <label for="children">Number of children (per room):</label><br>
+                <input type="number" id="children" name="children" min="0" max="2" value="0"><br>
+                <label for="infants">Number of infants (per room):</label><br>
+                <input type="number" id="infants" name="infants" min="0" max="2" value="0"><br>
+
+                <button type="submit">Submit</button>
+            </form>
+            <div id="staysinfo" class="hide">
+                <p id="staysinfodetail"></p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="row">
+        <div class="footer-content">
+            <div class="developer-details">
+                <h3>Developer Details</h3>
+                <span>First Name: Wajih</span><br>
+                <span>Last Name: Anwar</span><br>
+                <span>Net ID: WZA170000</span><br>
+                <span>Section Number: 6314.002</span>
+            </div>
+            <div class="partner-details">
+                <h4>Partner Details</h4>
+                <span>First Name: Utsav Dushyant</span><br>
+                <span>Last Name: Kanani</span><br>
+                <span>Net ID: udk230000</span><br>
+                <span>Section Number: 6314.002</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        const validCities = [
+            "Austin", 
+            "Dallas", 
+            "Houston", 
+            "San Antonio", 
+            "El Paso", 
+            "Lubbock", 
+            "Corpus Christi", 
+            "Midland", 
+            "Los Angeles", 
+            "San Francisco", 
+            "San Diego", 
+            "San Jose", 
+            "Sacramento", 
+            "Oakland", 
+            "Burbank", 
+            "Long Beach", 
+            "Santa Ana", 
+            "Fresno", 
+            "Palm Springs"
+        ];
+
+        function filterCities() {
+            const cityInput = document.getElementById('city').value.toLowerCase();
+            const citySuggestions = document.getElementById('citySuggestions'); 
+
+            citySuggestions.innerHTML = '';
+            const filteredCities = validCities.filter(city => city.toLowerCase().startsWith(cityInput));
+
+            filteredCities.forEach(city => {
+                const option = document.createElement('option');
+                option.value = city; // Set option value
+                citySuggestions.appendChild(option); // Add to datalist
+            });
+        }
+
+        function updateDateTime() {
+            const now = new Date();
+            const currentDateTime = now.toLocaleString();
+            document.querySelector('#datetime').textContent = currentDateTime;
+        }
+
+        function updateFontSize() {
+            const fontSize = document.getElementById('fontsize').value + 'px';
+            document.querySelector('.mainsection').style.fontSize = fontSize;
+            document.querySelector('#fontsizeval').textContent = fontSize;
+        }
+
+        function updateBackgroundColor() {
+            const bgColor = document.getElementById('bgColor').value;
+            document.querySelector('body').style.backgroundColor = bgColor;
+        }
+
+        document.getElementById('fontsize').addEventListener('input', updateFontSize);
+        document.getElementById('bgColor').addEventListener('input', updateBackgroundColor);
+        document.getElementById('city').addEventListener('input', filterCities);
+
+        setInterval(updateDateTime, 1000);
+
+        updateFontSize();
+        updateBackgroundColor();
+        filterCities();
+
+        function validateStaysForm(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const city = document.getElementById("city").value.trim();
+            const checkinDay = document.getElementById("checkinDay").value;
+            const checkoutDay = document.getElementById("checkoutDay").value;
+            const adults = parseInt(document.getElementById("adults").value);
+            const infants = parseInt(document.getElementById("infants").value);
+            const children = parseInt(document.getElementById("children").value);
+            const checkinDate = new Date(checkinDay);
+            const checkoutDate = new Date(checkoutDay);
+            const minDate = new Date("2024-09-01");
+            const maxDate = new Date("2024-12-01");
+            const cityLower = city.toLowerCase();
+            let valid = true;
+
+            // Validate city
+            if (!validCities.map(city => city.toLowerCase()).includes(cityLower)) {
+                alert("City must be a city in Texas or California.");
+                valid = false;
+            }
+
+            // Validate check-in date
+            if (checkinDay === "" || checkinDate < minDate || checkinDate > maxDate) {
+                alert("Check-in date must be between Sep 1, 2024, and Dec 1, 2024.");
+                valid = false;
+            }
+
+            // Validate check-out date
+            if (checkoutDay === "" || checkoutDate <= checkinDate || checkoutDate > maxDate) {
+                alert("Check-out date must be after check-in date and before Dec 1, 2024.");
+                valid = false;
+            }
+
+// Validation code snippet
+if (adults < 1 || adults > 2) {
+    alert("Number of adults must be between 1 and 2.");
+    valid = false;
+}
+if (children < 0 || children > 2) {
+    alert("Number of children must be between 0 and 2.");
+    valid = false;
+}
+if (infants < 0 || infants > 2) {
+    alert("Number of infants must be between 0 and 2.");
+    valid = false;
+}
+
+// Specific rules for children and infants
+if (adults === 2) {
+    if (children > 1) {
+        alert("Only 1 child allowed for 2 adults.");
+        valid = false;
+    }
+    if (infants > 2) {
+        alert("Only up to 2 infants allowed for 2 adults.");
+        valid = false;
+    }
+} else if (adults === 1) {
+    // If there's 1 adult, they cannot have any children or infants
+    if (children > 0) {
+        alert("1 adult cannot have any children.");
+        valid = false;
+    }
+    if (infants > 0) {
+        alert("1 adult cannot have any infants.");
+        valid = false;
+    }
+}
+            if (valid) {
+                document.getElementById("staysinfo").classList.remove("hide");
+                document.getElementById("staysinfodetail").textContent = `You have booked a stay in ${city} from ${checkinDay} to ${checkoutDay} for ${adults} adults, ${children} children, and ${infants} infants.`;
+            }
+        }
+    </script>
+</body>
+</html>
