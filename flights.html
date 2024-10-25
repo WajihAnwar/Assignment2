@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assignment 2</title>
+    <title>Assignment-2</title>
     <link rel="stylesheet" href="style.css">
- 
+    <!-- Font Awesome CDN for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
 <body>
-    <!-- header -->
+    <!-- Header -->
     <header class="row">
         <div class="header-data">
-            <span>Flights</span><br>
+            <span>Flight Booking</span><br>
         </div>
         <div id="datetime"></div>
     </header>
 
-    <!-- navigation bar-->
+    <!-- Navigation bar -->
     <div class="row navigations">
         <nav>
             <ul>
@@ -30,192 +32,271 @@
         </nav>
     </div>
 
-    <!-- side and main content-->
+    <!-- Main Content -->
     <div class="row container">
+        <!-- Side Section -->
         <section class="sidesection">
-            <h2>Side Content</h2>
-            <h4>Customization Controls :</h4>
-            <div>
-                <label for="fontsize">Font Size: </label>
-                <input type="range" id="fontsize" min="5" max="50" value="25">
-                <span id="fontsizeval">25px</span>
-            </div>
-            <div>
-                <label for="bgColor">Background Color: </label>
-                <input type="color" id="bgColor" value="#ffffff">
-            </div>
+            <h2>Customization Controls:</h2>
+            <label for="fontsize">Font Size: </label>
+            <input type="range" id="fontsize" min="5" max="50" value="25">
+            <span id="fontsizeval">25px</span><br><br>
+
+            <label for="bgColor">Background Color: </label>
+            <input type="color" id="bgColor" value="#ffffff">
         </section>
 
+        <!-- Main Section -->
         <section class="mainsection">
-            <h2>Welcome to UTD Expedia Flight Selector</h2>
-            <p>Please select your flight options below</p>
-            <form id="flightForm" onsubmit="validateForm(event)">
-                <label for="tripType">Choose Trip Type:</label>
-                <select id="tripType" name="tripType" onchange="toggleTripOptions()">
-                    <option value="">Select a trip type</option>
-                    <option value="oneway">One Way</option>
-                    <option value="roundtrip">Round Trip</option>
-                </select>
+            <h2>Trip Details</h2>
 
-                <!-- Hide the rest of the form by default -->
-                <div id="tripOptions" class="hidden">
-                    <div id="oneWayOptions" class="hidden">
-                        <h2>One Way Trip</h2>
-                        <label for="origin">Origin:</label>
-                        <input list="citySuggestions" id="origin" name="origin" oninput="filterCities()"><br>
-                        <datalist id="citySuggestions"></datalist>
-                        <label for="destination">Destination:</label>
-                        <input list="citySuggestions" id="destination" name="destination" oninput="filterCities()"><br>
-                        <datalist id="citySuggestions"></datalist>
-                
-                        <label for="departureDate">Departure Date:</label>
-                        <input type="date" id="departureDate" required>
-                    </div>
+            <!-- Trip Type -->
+            <label for="tripType">Select Trip Type:</label><br>
+            <input type="radio" id="oneWay" name="tripType" value="oneWay" checked> One-Way Trip
+            <input type="radio" id="roundTrip" name="tripType" value="roundTrip"> Round Trip<br><br>
 
-                    <div id="roundTripOptions" class="hidden">
-                        <h2>Round Trip</h2>
-                        <label for="originRound">Origin:</label>
-                        <input list="citySuggestions" id="originRound" name="originRound" oninput="filterCities()"><br>
-                        <datalist id="citySuggestionsRound"></datalist>
-                        <label for="destinationRound">Destination:</label>
-                        <input list="citySuggestions" id="destinationRound" name="destinationRound" oninput="filterCities()"><br>
-                        <datalist id="citySuggestionsRound"></datalist>
-                        
-                        <label for="departureDateRound">Departure Date:</label>
-                        <input type="date" id="departureDateRound" required>
-                        <label for="arrivalDate">Arrival Date:</label>
-                        <input type="date" id="arrivalDate" required>
-                    </div>
+            <!-- Flight Form -->
+            <form id="flightForm">
+                <label for="origin">Origin (Departure City):</label><br>
+                <input list="originSuggestions" id="origin" name="origin">
+                <datalist id="originSuggestions">
+                    <option value="Austin (Austin-Bergstrom International Airport)">
+                    <option value="Dallas (Dallas/Fort Worth International Airport)">
+                    <option value="Houston (George Bush Intercontinental Airport)">
+                    <option value="San Antonio (San Antonio International Airport)">
+                    <option value="El Paso (El Paso International Airport)">
+                    <option value="Lubbock (Lubbock Preston Smith International Airport)">
+                    <option value="Corpus Christi (Corpus Christi International Airport)">
+                    <option value="Midland (Midland International Air & Space Port)">
+                    <option value="Los Angeles (Los Angeles International Airport)">
+                    <option value="San Francisco (San Francisco International Airport)">
+                    <option value="San Diego (San Diego International Airport)">
+                    <option value="San Jose (San Jose International Airport)">
+                    <option value="Sacramento (Sacramento International Airport)">
+                    <option value="Oakland (Oakland International Airport)">
+                    <option value="Burbank (Hollywood Burbank Airport)">
+                    <option value="Long Beach (Long Beach Airport)">
+                    <option value="Santa Ana (John Wayne Airport)">
+                    <option value="Fresno (Fresno Yosemite International Airport)">
+                    <option value="Palm Springs (Palm Springs International Airport)">
+                </datalist><br><br>
 
-                    <label>Passenger Details:</label>
-                    <span class="icon" onclick="passengerForm()">👤</span><br>
+                <label for="destination">Destination (Arrival City):</label><br>
+                <input list="destinationSuggestions" id="destination" name="destination">
+                <datalist id="destinationSuggestions">
+                    <option value="Austin (Austin-Bergstrom International Airport)">
+                    <option value="Dallas (Dallas/Fort Worth International Airport)">
+                    <option value="Houston (George Bush Intercontinental Airport)">
+                    <option value="San Antonio (San Antonio International Airport)">
+                    <option value="El Paso (El Paso International Airport)">
+                    <option value="Lubbock (Lubbock Preston Smith International Airport)">
+                    <option value="Corpus Christi (Corpus Christi International Airport)">
+                    <option value="Midland (Midland International Air & Space Port)">
+                    <option value="Los Angeles (Los Angeles International Airport)">
+                    <option value="San Francisco (San Francisco International Airport)">
+                    <option value="San Diego (San Diego International Airport)">
+                    <option value="San Jose (San Jose International Airport)">
+                    <option value="Sacramento (Sacramento International Airport)">
+                    <option value="Oakland (Oakland International Airport)">
+                    <option value="Burbank (Hollywood Burbank Airport)">
+                    <option value="Long Beach (Long Beach Airport)">
+                    <option value="Santa Ana (John Wayne Airport)">
+                    <option value="Fresno (Fresno Yosemite International Airport)">
+                    <option value="Palm Springs (Palm Springs International Airport)">
+                </datalist><br><br>
 
-                    <div id="passengerform" class="hidden">
-                        <label for="adults">Adults:</label><br>
-                        <input type="number" id="adults" name="adults" min="0" max="4" value="1"><br>
 
-                        <label for="children">Children:</label><br>
-                        <input type="number" id="children" name="children" min="0" max="4" value="0"><br>
+                <!--Departing and Arrival Dates, used min and max to block dates from passing limit   --> 
+                <label for="departingDate">Departing Date (Sep 1, 2024 to Dec 1, 2024):</label><br>
+                <input type="date" id="departingDate" name="departingDate" min="2024-09-01" max="2024-12-01"><br><br>
 
-                        <label for="infants">Infants:</label><br>
-                        <input type="number" id="infants" name="infants" min="0" max="4" value="0"><br>
-
-                        <span class="error" id="passengerformerr"></span><br>
-                    </div>
-
-                    <button type="submit">Submit</button>
+                <div id="returnFlight" style="display: none;">
+                    <label for="returningDate">Returning Date (Sep 1, 2024 to Dec 1, 2024):</label><br>
+                    <input type="date" id="returningDate" name="returningDate" min="2024-09-01" max="2024-12-01"><br><br>
                 </div>
+
+                <!-- Passenger Icon -->
+                <i class="fas fa-users" id="passengerIcon" style="font-size: 2rem; cursor: pointer;"></i>
+                <span>Click to add passengers</span><br><br>
+
+                <div id="passengerForm" style="display: none;">
+                    <h4>Enter Passenger Details:</h4>
+                    <label for="adults">Number of Adults:</label><br>
+                    <input type="number" id="adults" name="adults" value="1"><br><br>
+
+                    <label for="children">Number of Children:</label><br>
+                    <input type="number" id="children" name="children" value="0"><br><br>
+
+                    <label for="infants">Number of Infants:</label><br>
+                    <input type="number" id="infants" name="infants" value="0"><br><br>
+                </div><br>
+
+                <button type="submit">Search Flights</button>
             </form>
 
-            <div id="flightforminfo" class="hidden">
-                <p id="tripinfo"></p>
-                <p id="passengerinfo"></p>
-            </div>
+            <div id="output" style="margin-top: 20px;"></div>
         </section>
     </div>
 
+    <!-- Footer -->
+    <footer class="row">
+        <div class="footer-content">
+            <div class="developer-details">
+                <h3>Developer Details</h3>
+                <span>First Name: Wajih</span><br>
+                <span>Last Name: Anwar</span><br>
+                <span>Net ID: WZA170000</span><br>
+                <span>Section Number: 6314.002</span>
+            </div>
+            <div class="partner-details">
+                <h4>Partner Details</h4>
+                <span>First Name: Utsav Dushyant</span><br>
+                <span>Last Name: Kanani</span><br>
+                <span>Net ID: udk230000</span><br>
+                <span>Section Number: 6314.002</span>
+            </div>
+        </div>
+    </footer>
+    <!-- JavaScript -->
     <script>
-        const validCities = [
-            "Austin (Austin-Bergstrom International Airport)", 
-            "Dallas (Dallas/Fort Worth International Airport)", 
-            "Houston (George Bush Intercontinental Airport)", 
-            "San Antonio (San Antonio International Airport)", 
-            "El Paso (El Paso International Airport)", 
-            "Lubbock (Lubbock Preston Smith International Airport)", 
-            "Corpus Christi (Corpus Christi International Airport)", 
-            "Midland (Midland International Air & Space Port)", 
-            "Los Angeles (Los Angeles International Airport)", 
-            "San Francisco (San Francisco International Airport)", 
-            "San Diego (San Diego International Airport)", 
-            "San Jose (San Jose International Airport)", 
-            "Sacramento (Sacramento International Airport)", 
-            "Oakland (Oakland International Airport)", 
-            "Burbank (Hollywood Burbank Airport)", 
-            "Long Beach (Long Beach Airport)", 
-            "Santa Ana (John Wayne Airport)", 
-            "Fresno (Fresno Yosemite International Airport)", 
-            "Palm Springs (Palm Springs International Airport)"
-        ];
 
-        // Function to filter and display city suggestions
-        function filterCities() {
-            const cityInputOrigin = document.getElementById('origin').value.toLowerCase();
-            const cityInputDestination = document.getElementById('destination').value.toLowerCase();
-            const citySuggestionsOrigin = document.getElementById('citySuggestions'); 
-            const citySuggestionsDestination = document.getElementById('citySuggestions'); 
 
-            // Clear existing suggestions
-            citySuggestionsOrigin.innerHTML = '';
-            citySuggestionsDestination.innerHTML = '';
 
-            const filteredCities = validCities.filter(city => 
-                city.toLowerCase().startsWith(cityInputOrigin) || 
-                city.toLowerCase().startsWith(cityInputDestination)
-            );
+        $(document).ready(function () {
+             // For time 
+                 setInterval(function () {
+                const now = new Date();
+                const currentDateTime = now.toLocaleString();
+                $('#datetime').text(currentDateTime);
+            }, 1000);
 
-            // Add filtered suggestions to the datalist
-            filteredCities.forEach(city => {
-                const option = document.createElement('option');
-                option.value = city; // Set option value
-                citySuggestionsOrigin.appendChild(option); // Add to datalist
-                citySuggestionsDestination.appendChild(option.cloneNode(true)); // Clone for destination datalist
+            // For Font Size
+            $('#fontsize').on('input', function () {
+                const fontSize = $(this).val() + 'px';
+                $('.mainsection').css('font-size', fontSize);
+                $('#fontsizeval').text(fontSize);
             });
-        }
 
-        function updateDateTime() {
-            const now = new Date();
-            const currentDateTime = now.toLocaleString();
-            document.querySelector('#datetime').textContent = currentDateTime;
-        }
+            // For background color
+            $('#bgColor').on('input', function () {
+                const bgColor = $(this).val();
+                $('body').css('background-color', bgColor);
+            });
 
-        function updateFontSize() {
-            const fontSize = document.getElementById('fontsize').value + 'px';
-            document.querySelector('.mainsection').style.fontSize = fontSize;
-            document.querySelector('#fontsizeval').textContent = fontSize;
-        }
 
-        function updateBackgroundColor() {
-            const bgColor = document.getElementById('bgColor').value;
-            document.querySelector('body').style.backgroundColor = bgColor;
-        }
 
-        // Call the update functions on change
-        document.getElementById('fontsize').addEventListener('input', updateFontSize);
-        document.getElementById('bgColor').addEventListener('input', updateBackgroundColor);
-        document.getElementById('origin').addEventListener('input', filterCities);
-        document.getElementById('destination').addEventListener('input', filterCities);
 
-        // Update the date and time every second
-        setInterval(updateDateTime, 1000);
+            const validCities = [
+                "Austin (Austin-Bergstrom International Airport)", 
+                "Dallas (Dallas/Fort Worth International Airport)", 
+                "Houston (George Bush Intercontinental Airport)", 
+                "San Antonio (San Antonio International Airport)", 
+                "El Paso (El Paso International Airport)", 
+                "Lubbock (Lubbock Preston Smith International Airport)", 
+                "Corpus Christi (Corpus Christi International Airport)", 
+                "Midland (Midland International Air & Space Port)", 
+                "Los Angeles (Los Angeles International Airport)", 
+                "San Francisco (San Francisco International Airport)", 
+                "San Diego (San Diego International Airport)", 
+                "San Jose (San Jose International Airport)", 
+                "Sacramento (Sacramento International Airport)", 
+                "Oakland (Oakland International Airport)", 
+                "Burbank (Hollywood Burbank Airport)", 
+                "Long Beach (Long Beach Airport)", 
+                "Santa Ana (John Wayne Airport)", 
+                "Fresno (Fresno Yosemite International Airport)", 
+                "Palm Springs (Palm Springs International Airport)"
+            ];
+               const dateRegex = /^2024-(09|10|11|12)-(0[1-9]|[12][0-9]|30|31)$/;
 
-        // Initialize font size and background color on page load
-        updateFontSize();
-        updateBackgroundColor();
-        filterCities();
+            // Showing/Hiding return flight date based on trip type
+            $("input[name='tripType']").change(function () {
+                if ($("#roundTrip").is(":checked")) {
+                    $("#returnFlight").show();
+                } else {
+                    $("#returnFlight").hide();
+                }
+            });
 
-        function toggleTripOptions() {
-            const tripType = document.getElementById("tripType").value;
-            const tripOptions = document.getElementById("tripOptions");
-            const oneWayOptions = document.getElementById("oneWayOptions");
-            const roundTripOptions = document.getElementById("roundTripOptions");
+            // Show passenger form when passenger icon is clicked
+            $("#passengerIcon").click(function () {
+                $("#passengerForm").toggle();
+            });
 
-            tripOptions.classList.remove("hidden");
+            // Form submission
+            $("#flightForm").submit(function (event) {
+                event.preventDefault();
 
-            if (tripType === "oneway") {
-                oneWayOptions.classList.remove("hidden");
-                roundTripOptions.classList.add("hidden");
-            } else if (tripType === "roundtrip") {
-                roundTripOptions.classList.remove("hidden");
-                oneWayOptions.classList.add("hidden");
-            }
-        }
+                // Get form values
+                let tripType = $("input[name='tripType']:checked").val();
+                let origin = $("#origin").val().trim();
+                let destination = $("#destination").val().trim();
+                let departingDate = $("#departingDate").val();
+                let returningDate = $("#returningDate").val();
+                let adults = parseInt($("#adults").val());
+                let children = parseInt($("#children").val());
+                let infants = parseInt($("#infants").val());
 
-        function passengerForm() {
-            const passengerForm = document.getElementById("passengerform");
-            passengerForm.classList.toggle("hidden");
-        }
+                // Validate origin and destination
+                if (!validCities.includes(origin)) {
+                    alert("Origin must be a city in Texas or California.");
+                    return;
+                }
+                if (!validCities.includes(destination)) {
+                    alert("Destination must be a city in Texas or California.");
+                    return;
+                }
+                if (origin === destination) {
+                    alert("Origin and Destination cannot be the same.");
+                    return;
+                }
 
-    
+                // Validate departing date
+                if (!dateRegex.test(departingDate)) {
+                    alert("Please enter a valid departing date between Sep 1, 2024, and Dec 1, 2024.");
+                    return;
+                }
+
+                // Validate returning date for round trip
+                if (tripType === "roundTrip") {
+                    if (!dateRegex.test(returningDate)) {
+                        alert("Please enter a valid returning date between Sep 1, 2024, and Dec 1, 2024.");
+                        return;
+                    }
+                    if (new Date(returningDate) < new Date(departingDate)) {
+                        alert("The returning date cannot be before the departing date.");
+                        return;
+                    }
+                }
+
+                // Passenger Validation
+                if (adults < 1 || adults > 4) {
+                    alert("Number of adults must be between 1 and 4.");
+                    return;
+                }
+                if (children > 4) {
+                    alert("Number of children cannot exceed 4.");
+                    return;
+                }
+                if (infants > 4) {
+                    alert("Number of infants cannot exceed 4.");
+                    return;
+                }
+
+                // Display the entered data if all validations gets pass
+                $("#output").html(`
+                    <h4>Flight Booking Details:</h4>
+                    <p>Trip Type: ${tripType === "oneWay" ? "One-Way" : "Round Trip"}</p>
+                    <p>Origin: ${origin}</p>
+                    <p>Destination: ${destination}</p>
+                    <p>Departing Date: ${departingDate}</p>
+                    ${tripType === "roundTrip" ? `<p>Returning Date: ${returningDate}</p>` : ""}
+                    <p>Adults: ${adults}</p>
+                    <p>Children: ${children}</p>
+                    <p>Infants: ${infants}</p>
+                `);
+            });
+        });
     </script>
 </body>
+
 </html>

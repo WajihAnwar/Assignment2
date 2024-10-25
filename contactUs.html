@@ -69,8 +69,8 @@
                    
                     <button type="submit" value="submit">Submit</button><br>
                 </form>
+                <div id="displayContact"></div>
             </div>
-            <div id="displayContact"></div>
         </section>
 
 
@@ -135,13 +135,13 @@
                 let isValid = true;
 
                 let namePattern = /^[A-Za-z]*$/;
-                let phonePattern = /^\(\d{3}\) \d{3}-\d{4}$/;
+                let phonePattern = /^\(\d{3}\)\s?\d{3}-\d{4}$/;
                 let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 
                 if (!firstname && !lastname && !phone && !email && !gender && !comment) {
                     alert("All fields are empty. Please fill in the form.");
-                    return false; // Stop validation if all fields are empty
+                    return false;
                 }
 
        

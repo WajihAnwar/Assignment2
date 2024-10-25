@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Assignment 2</title>
+    <title>Assignment 2 - Cruises</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
 <body>
-    <!-- header -->
+    <!-- Header -->
     <header class="row">
         <div class="header-data">
             <span>CS 6314</span><br>
             <span>Assignment - 2</span><br>
-            <br><span>UTD Expedia </span>
+            <br><span>UTD Expedia - Cruises</span>
         </div>
         <div id="datetime"></div>
     </header>
 
-    <!-- navigation bar-->
+    <!-- Navigation bar -->
     <div class="row navigations">
         <nav>
             <ul>
@@ -29,58 +32,54 @@
         </nav>
     </div>
 
-    <!-- side and main content-->
+    <!-- Main Content -->
     <div class="row container">
         <section class="sidesection">
-            <h2>Side Content</h2>
-            <h4>Customization Controls :</h4>
-            <div>
-                <label for="fontsize">Font Size: </label>
-                <input type="range" id="fontsize" min="5" max="50" value="25">
-                <span id="fontsizeval">25px</span>
-            </div>
-            <div>
-                <label for="bgColor">Background Color: </label>
-                <input type="color" id="bgColor" value="#ffffff">
-            </div>
+            <h2>Customization Controls:</h2>
+            <label for="fontsize">Font Size: </label>
+            <input type="range" id="fontsize" min="5" max="50" value="25">
+            <span id="fontsizeval">25px</span><br><br>
+
+            <label for="bgColor">Background Color: </label>
+            <input type="color" id="bgColor" value="#ffffff">
         </section>
+
         <section class="mainsection">
-            <h2>Book a Car</h2>
-            <form id="carform" onsubmit="return validateCarForm(event)">
-                <label for="city">Which City are you picking up from:</label><br>
-                <input list="citySuggestions" id="city" name="city"><br>
-                <datalist id="citySuggestions"></datalist>
+            <h2>Book a Cruise</h2>
+      
+            <form id="cruiseForm">
+                <label for="destination">Destination:</label><br>
+                <input list="destinationSuggestions" id="destination" name="destination">
+                <datalist id="destinationSuggestions">
+                    <option value="Alaska">
+                    <option value="Bahamas">
+                    <option value="Europe">
+                    <option value="Mexico">
+                </datalist><br><br>
 
+                <label for="departing">Departing Date (Sep 1, 2024 to Dec 1, 2024):</label><br>
+                <input type="date" id="departing" name="departing"><br><br>
 
-                <label for ="car">Which type of car do you want</label><br>
-                <select name = "cars" id = "cars">
-                    <option name = "economy">Economy </option>
-                    <option name = "SUV">SUV </option>
-                    <option name = "Compact">Compact </option>
-                    <option name = "Midsize">Midsize</option>
-                </select><br>
+                <label for="duration">Duration (3 to 10 days):</label><br>
+                <input type="number" id="duration" name="duration"><br><br>
 
+                <label for="adults">Number of Adults:</label><br>
+                <input type="number" id="adults" name="adults" value="1"><br><br>
 
+                <label for="children">Number of Children (per room):</label><br>
+                <input type="number" id="children" name="children" value="0"><br><br>
 
-
-                
-                <label for="checkinDay">Check-In Date:</label><br>
-                <input type="date" id="checkinDay" name="checkinDay"><br>
-                <label for="checkoutDay">Check-Out Date:</label><br>
-                <input type="date" id="checkoutDay" name="checkoutDay"><br>
+                <label for="infants">Number of Infants (per room):</label><br>
+                <input type="number" id="infants" name="infants" value="0"><br><br>
 
                 <button type="submit">Submit</button>
             </form>
-            <div id="staysinfo" class="hide">
-                <p id="staysinfodetail"></p>
-            </div>
-          
+
+            <div id="output" style="margin-top: 20px;"></div>
         </section>
     </div>
 
-
-
-    <!-- footer -->
+    <!-- Footer -->
     <footer class="row">
         <div class="footer-content">
             <div class="developer-details">
@@ -92,154 +91,115 @@
             </div>
             <div class="partner-details">
                 <h4>Partner Details</h4>
-                <span>First Name: Utsav Dushyant</span><br>
+                <span>First Name: Utsav</span><br>
                 <span>Last Name: Kanani</span><br>
-                <span>Net ID: udk230000</span><br>
+                <span>Net ID: UDK230000</span><br>
                 <span>Section Number: 6314.002</span>
             </div>
-        
+        </div>
+    </footer>
 
- <!-- javascript -->
- <script>
-    // Updated list of valid cities (add cities from FLIGHTS as needed)
-    const validCities = [
-        "Austin ", 
-        "Dallas ", 
-        "Houston ", 
-        "San Antonio ", 
-        "El Paso ", 
-        "Lubbock ", 
-        "Corpus Christi ", 
-        "Midland ", 
-        "Los Angeles ", 
-        "San Francisco ", 
-        "San Diego ", 
-        "San Jose ", 
-        "Sacramento ", 
-        "Oakland ", 
-        "Burbank ", 
-        "Long Beach ", 
-        "Santa Ana ", 
-        "Fresno ", 
-        "Palm Springs "
-    ];
+    <!-- JavaScript -->
+    <script>
+        $(document).ready(function () {
+            const validDestinations = ["Alaska", "Bahamas", "Europe", "Mexico"];
 
-    // Function to filter and display city suggestions
-    function filterCities() {
-        const cityInput = document.getElementById('city').value.toLowerCase();
-        const citySuggestions = document.getElementById('citySuggestions'); 
+            // Update date and time
+            setInterval(function () {
+                let now = new Date();
+                $("#datetime").text(now.toLocaleString());
+            }, 1000);
 
-        citySuggestions.innerHTML = '';
-        const filteredCities = validCities.filter(city => city.toLowerCase().startsWith(cityInput));
+            // Font size control
+            $("#fontsize").on("input", function () {
+                let fontSize = $(this).val() + "px";
+                $(".mainsection").css("font-size", fontSize);
+                $("#fontsizeval").text(fontSize);
+            });
 
-        // Add filtered suggestions to the datalist
-        filteredCities.forEach(city => {
-            const option = document.createElement('option');
-            option.value = city; // Set option value
-            citySuggestions.appendChild(option); // Add to datalist
+            // Background color control
+            $("#bgColor").on("input", function () {
+                $("body").css("background-color", $(this).val());
+            });
+
+            // Form validation and submission
+            $("#cruiseForm").submit(function (event) {
+                event.preventDefault();
+
+                let destination = $("#destination").val();
+                let departing = $("#departing").val();
+                let duration = parseInt($("#duration").val());
+                let adults = parseInt($("#adults").val());
+                let children = parseInt($("#children").val());
+                let infants = parseInt($("#infants").val());
+
+                // Validate destination
+                if (!validDestinations.includes(destination)) {
+                    alert("Please select or enter a valid destination (Alaska, Bahamas, Europe, Mexico).");
+                    return;
+                }
+
+                // Validate departing date
+                let departingDate = new Date(departing);
+                let minDate = new Date("2024-09-01");
+                let maxDate = new Date("2024-12-01");
+
+                if (!departing || departingDate < minDate || departingDate > maxDate) {
+                    alert("Please select a valid departing date between Sep 1, 2024 and Dec 1, 2024.");
+                    return;
+                }
+
+                // Validate duration
+                if (isNaN(duration) || duration < 3 || duration > 10) {
+                    alert("Duration must be between 3 and 10 days.");
+                    return;
+                }
+
+                // Validate number of guests
+                if (adults < 1 || adults > 2) {
+                    if(adults<1){
+                        alert("There Should be atleast One Adult")
+                    }
+                    else{
+                        alert("Number of adults must be between 1 and 2.");
+                    }
+                    return;
+                }
+
+                if (infants < 0 || infants > 2) {
+                    alert("Number of infants must be between 0 and 2.");
+                    return;
+                }
+
+                // Logic when 1 adult is present
+                if (adults === 1) {
+                    if (children > 2) {
+                        alert("A maximum of 2 children are allowed with 1 adult.");
+                        return;
+                    }
+                }
+
+                // Logic when 2 adults are present
+                if (adults === 2) {
+                    if (children > 1) {
+                        alert("Maximum of 1 child is allowed with 2 adult.");
+                        return;
+                    }
+                }
+
+                // Display the entered data
+                $("#output").html(`
+                    <h4>Cruise Booking Details:</h4>
+                    <p>Destination: ${destination}</p>
+                    <p>Departing: ${departing}</p>
+                    <p>Duration: ${duration} days</p>
+                    <p>Adults: ${adults}</p>
+                    <p>Children: ${children}</p>
+                    <p>Infants: ${infants}</p>
+                `);
+            });
         });
-    }
-
-    // Function to update date and time display
-    function updateDateTime() {
-        const now = new Date();
-        const currentDateTime = now.toLocaleString();
-        document.querySelector('#datetime').textContent = currentDateTime;
-    }
-
-    // Function to update font size based on input range
-    function updateFontSize() {
-        const fontSize = document.getElementById('fontsize').value + 'px';
-        document.querySelector('.mainsection').style.fontSize = fontSize;
-        document.querySelector('#fontsizeval').textContent = fontSize;
-    }
-
-    // Function to update background color based on user selection
-    function updateBackgroundColor() {
-        const bgColor = document.getElementById('bgColor').value;
-        document.querySelector('body').style.backgroundColor = bgColor;
-    }
-
-    // Call update functions on input changes
-    document.getElementById('fontsize').addEventListener('input', updateFontSize);
-    document.getElementById('bgColor').addEventListener('input', updateBackgroundColor);
-    document.getElementById('city').addEventListener('input', filterCities);
-
-    // Update the date and time every second
-    setInterval(updateDateTime, 1000);
-
-    // Initialize font size and background color on page load
-    updateFontSize();
-    updateBackgroundColor();
-    filterCities();
-
-
-
-
-    function validateCarForm(event) {
-    event.preventDefault();
-    let city = document.getElementById("city").value.trim();
-    let checkinDay = document.getElementById("checkinDay").value;
-    let checkoutDay = document.getElementById("checkoutDay").value;
-    let carType = document.getElementById("cars").value;
-    const checkinDate = new Date(checkinDay);
-    const checkoutDate = new Date(checkoutDay);
-    const minDate = new Date("2024-09-01");
-    const maxDate = new Date("2024-12-01");
-    let cityLower = city.toLowerCase().replace(/\s+/g, ' ').trim(); 
-    let valid = true;
-
- 
-
-    // Validate city
-    if (!validCities.map(city => city.toLowerCase().trim()).includes(cityLower) || city === "") {
-        alert("City must be a city in Texas or California and cannot be empty.");
-        valid = false;
-    }
-
-    // Validate car type
-    if (carType === "") {
-        alert("Please select a car type.");
-        valid = false;
-    }
-
-    // Validate check-in date
-    if (checkinDay === "" || checkinDate < minDate || checkinDate > maxDate) {
-        alert("Check-in date must be between Sep 1, 2024, and Dec 1, 2024.");
-        valid = false;
-    }
-
-    // Validate check-out date
-    if (checkoutDay === "" || checkoutDate < minDate || checkoutDate > maxDate) {
-        alert("Check-out date must be between Sep 1, 2024, and Dec 1, 2024.");
-        valid = false;
-    }
-
-    if (checkinDate > checkoutDate) {
-        alert("Check-in date should be less than or equal to check-out date.");
-        valid = false;
-    }
-
-    if (valid) {
-        showStaysFormDetails();
-    }
-    return valid;
-
-
-
-        // Function to display the form details
-        function showStaysFormDetails() {
-            let city = document.getElementById("city").value.trim();
-            let carType = document.getElementById("cars").value;
-            let checkinDay = document.getElementById("checkinDay").value;
-            let checkoutDay = document.getElementById("checkoutDay").value;
-    
-
-            let staysInfoDetail = `You have selected: ${city} with ${carType}  car from ${checkinDay} to ${checkoutDay} `;
-            document.getElementById("staysinfodetail").innerText = staysInfoDetail;
-            document.getElementById("staysinfo").classList.remove("hide");
-        }
-    }
-</script>
+    </script>
 </body>
+
 </html>

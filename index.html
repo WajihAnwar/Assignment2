@@ -3,6 +3,7 @@
 <head>
     <title>Assignment 2</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <!-- header -->
@@ -79,35 +80,31 @@
             </div>
         
 
- <!-- javascript -->
+ <!-- javascript using Jquery -->
  <script>
-    function updateDateTime() {
-        const now = new Date();
-        const currentDateTime = now.toLocaleString();
-        document.querySelector('#datetime').textContent = currentDateTime;
-    }
+    $(document).ready(function () {
+       
+        //For time 
+        setInterval(function () {
+            const now = new Date();
+            const currentDateTime = now.toLocaleString();
+            $('#datetime').text(currentDateTime);
+        }, 1000);
 
-    function updateFontSize() {
-        const fontSize = document.getElementById('fontsize').value + 'px';
-        document.querySelector('.mainsection').style.fontSize = fontSize;
-        document.querySelector('#fontsizeval').textContent = fontSize;
-    }
 
-    function updateBackgroundColor() {
-        const bgColor = document.getElementById('bgColor').value;
-        document.querySelector('body').style.backgroundColor = bgColor;
-    }
+        //For Font Size
+        $('#fontsize').on('input', function () {
+            const fontSize = $(this).val() + 'px';
+            $('.mainsection').css('font-size', fontSize);
+            $('#fontsizeval').text(fontSize);
+        });
 
-    // Call the update functions on change
-    document.getElementById('fontsize').addEventListener('input', updateFontSize);
-    document.getElementById('bgColor').addEventListener('input', updateBackgroundColor);
-
-    // Update the date and time every second
-    setInterval(updateDateTime, 1000);
-
-    // Initialize
-    updateFontSize();
-    updateBackgroundColor();
+        //For background color
+        $('#bgColor').on('input', function () {
+            const bgColor = $(this).val();
+            $('body').css('background-color', bgColor);
+        });
+    });
 </script>
 </body>
 </html>

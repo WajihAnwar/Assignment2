@@ -235,8 +235,15 @@ if (adults === 2) {
     }
 }
             if (valid) {
-                document.getElementById("staysinfo").classList.remove("hide");
-                document.getElementById("staysinfodetail").textContent = `You have booked a stay in ${city} from ${checkinDay} to ${checkoutDay} for ${adults} adults, ${children} children, and ${infants} infants.`;
+                let displayStaysInfo = document.getElementById("staysinfo");
+                 displayStaysInfo.classList.remove("hide");
+                displayStaysInfo.innerHTML = `<h4>Booking Details:</h4><br>
+                City: ${city}<br>
+            Check-In Date: ${checkinDay}<br>
+            Check-Out Date: ${checkoutDay}<br>
+            Adults: ${adults}<br>
+            Children: ${children}<br>
+            Infants: ${infants}<br>`
             }
         }
     </script>

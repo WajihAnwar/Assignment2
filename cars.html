@@ -101,7 +101,6 @@
 
  <!-- javascript -->
  <script>
-    // Updated list of valid cities (add cities from FLIGHTS as needed)
     const validCities = [
         "Austin ", 
         "Dallas ", 
@@ -221,25 +220,18 @@
     }
 
     if (valid) {
-        showStaysFormDetails();
+        let displayCarInfo = document.getElementById("staysinfo");
+        displayCarInfo.classList.remove("hide");
+        
+        // Display the booking details directly here
+        displayCarInfo.innerHTML = `<h4>Booking Details:</h4><br>
+            City: ${city}<br>
+            Car Type: ${carType}<br>
+            Check-In Date: ${checkinDay}<br>
+            Check-Out Date: ${checkoutDay}<br>`;
     }
     return valid;
-
-
-
-        // Function to display the form details
-        function showStaysFormDetails() {
-            let city = document.getElementById("city").value.trim();
-            let carType = document.getElementById("cars").value;
-            let checkinDay = document.getElementById("checkinDay").value;
-            let checkoutDay = document.getElementById("checkoutDay").value;
-    
-
-            let staysInfoDetail = `You have selected: ${city} with ${carType}  car from ${checkinDay} to ${checkoutDay} `;
-            document.getElementById("staysinfodetail").innerText = staysInfoDetail;
-            document.getElementById("staysinfo").classList.remove("hide");
-        }
-    }
+}
 </script>
 </body>
 </html>
